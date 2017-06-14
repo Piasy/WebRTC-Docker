@@ -1,7 +1,8 @@
 # apprtc-docker
 
-Dockerfile for apprtc
+Out-of-the-box docker images for AppRTC dev/test purpose.
 
+## AppRTC-Server
 
 ``` bash
 docker run --rm \
@@ -12,3 +13,13 @@ docker run --rm \
   -v <path to constants.py>:/apprtc_configs
   -t -i piasy/apprtc-server
 ```
+
+See https://github.com/Piasy/apprtc
+
+## AppRTC-Android
+
+todo
+
+## AppRTC-iOS
+
+todo
