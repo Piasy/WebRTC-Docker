@@ -8,6 +8,7 @@ WORKDIR /
 ENV GAE_VER 1.9.54
 ENV GOLANG_VER 1.8.3
 
+ENV PUBLIC_IP 127.0.0.1
 ENV COLLIDER_PORT 8089
 ENV COLLIDER_STL true
 
@@ -49,14 +50,11 @@ RUN tar xvfz turnserver-4.5.0.6.tar.gz
 WORKDIR turnserver-4.5.0.6
 RUN ./configure && make && make install
 RUN turnadmin -a -u ninefingers -r apprtc -p youhavetoberealistic
-# fake certification info
-COPY turn_server_cert.pem /etc/turn_server_cert.pem
-COPY turn_server_pkey.pem /etc/turn_server_pkey.pem
 COPY turnserver.conf /etc/turnserver.conf
 
 # AppRTC
 WORKDIR /
-RUN git clone https://github.com/Piasy/apprtc.git
+RUN git clone https://github.com/webrtc/apprtc.git
 
 WORKDIR apprtc
 
@@ -73,6 +71,9 @@ RUN npm install
 RUN grunt build
 
 WORKDIR /
+
+RUN npm install express
+COPY ice.js /
 
 COPY run.sh /
 RUN chmod +x /run.sh

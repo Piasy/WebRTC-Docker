@@ -6,8 +6,9 @@ Out-of-the-box docker images for AppRTC dev/test purpose.
 
 ``` bash
 docker run --rm \
-  -p 8080:8080 -p 8089:8089 -p 3478:3478 \
+  -p 8080:8080 -p 8089:8089 -p 3478:3478 -p 3033:3033 \
   --expose=59000-65000 \
+  -e PUBLIC_IP=<server public IP> \
   -e GOPATH=/goWorkspace \
   -e COLLIDER_STL=false \
   -e COLLIDER_PORT=8089 \
