@@ -1,4 +1,4 @@
-if [ "$ENABLE_SHADOW_SOCKS" == "true" ]
+if [[ "$ENABLE_SHADOW_SOCKS" == "true" ]]
 then
   sed -i 's/server-ip/"$SHADOW_SOCKS_SERVER_ADDR"/g' /etc/shadowsocks.json
   sed -i 's/server-port/"$SHADOW_SOCKS_SERVER_PORT"/g' /etc/shadowsocks.json

@@ -1,4 +1,4 @@
-# apprtc-docker
+# WebRTC-Docker
 
 Out-of-the-box docker images for AppRTC dev/test purpose.
 
@@ -24,10 +24,26 @@ So make sure your firewall has opened those ports.
 
 About how to modify `constants.py`, see [this example](https://github.com/Piasy/apprtc-docker/blob/master/server/constants.py), `ICE_SERVER_BASE_URL`, `ICE_SERVER_URL_TEMPLATE` and `WSS_INSTANCES` has been modified.
 
-## AppRTC-Android
+## WebRTC-Build
 
-todo
+``` bash
+docker run --rm \
+  -e ENABLE_SHADOW_SOCKS=true \
+  -e SHADOW_SOCKS_SERVER_ADDR=<your shadowsocks server ip> \
+  -e SHADOW_SOCKS_SERVER_PORT=<your shadowsocks server port> \
+  -e SHADOW_SOCKS_ENC_METHOD=<your shadowsocks encrypt method> \
+  -e SHADOW_SOCKS_ENC_PASS=<your shadowsocks encrypt password> \
+  -v <path to place webrtc source>:/webrtc \
+  -t -i piasy/webrtc-build
+```
 
-## AppRTC-iOS
+If you don't need run shadowsocks proxy, you can run:
 
-todo
+``` bash
+docker run --rm \
+  -e ENABLE_SHADOW_SOCKS=false \
+  -v <path to place webrtc source>:/webrtc \
+  -t -i piasy/webrtc-build
+```
+
+Only Android is supported now, iOS support is working on, stay tuned!
