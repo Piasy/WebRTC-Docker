@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [[ "$ENABLE_SHADOW_SOCKS" == "true" ]]
 then
   sed -i 's/server-ip/"$SHADOW_SOCKS_SERVER_ADDR"/g' /etc/shadowsocks.json
@@ -7,6 +9,6 @@ then
 
   sslocal -c /etc/shadowsocks.json -d start
   proxychains bash
+else
+  bash
 fi
-
-bash
