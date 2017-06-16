@@ -9,4 +9,4 @@ then
   proxychains bash
 fi
 
-source /build.sh
+bash

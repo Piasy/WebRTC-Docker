@@ -28,6 +28,7 @@ COPY proxychains.conf ~/.proxychains/proxychains.conf
 COPY shadowsocks.json /etc/shadowsocks.json
 
 COPY build.sh /
+RUN /bin/bash -c "source /build.sh"
 COPY run.sh /
 RUN chmod +x /run.sh
 CMD /run.sh
