@@ -16,11 +16,13 @@ RUN apt-get install -y build-essential vim git python-pip proxychains wget
 RUN pip install shadowsocks
 
 # libsodium
-RUN wget https://download.libsodium.org/libsodium/releases/LATEST.tar.gz
-RUN tar zxf LATEST.tar.gz && cd libsodium*
+RUN wget https://download.libsodium.org/libsodium/releases/libsodium-1.0.12.tar.gz
+RUN tar zxf libsodium-1.0.12.tar.gz
+WORKDIR /libsodium-1.0.12
 RUN ./configure && make && make install
 RUN echo /usr/local/lib > /etc/ld.so.conf.d/usr_local_lib.conf && ldconfig
 
+WORKDIR /
 RUN mkdir ~/.proxychains
 COPY proxychains.conf ~/.proxychains/proxychains.conf
 COPY shadowsocks.json /etc/shadowsocks.json
