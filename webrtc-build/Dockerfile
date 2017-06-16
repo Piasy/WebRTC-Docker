@@ -23,12 +23,12 @@ RUN ./configure && make && make install
 RUN echo /usr/local/lib > /etc/ld.so.conf.d/usr_local_lib.conf && ldconfig
 
 WORKDIR /
-RUN mkdir ~/.proxychains
-COPY proxychains.conf ~/.proxychains/proxychains.conf
+RUN mkdir /root/.proxychains
+COPY proxychains.conf /root/.proxychains/proxychains.conf
 COPY shadowsocks.json /etc/shadowsocks.json
 
 COPY build.sh /
-RUN echo 'source /build.sh' > ~/.bashrc
+RUN echo 'source /build.sh' > /root/.bashrc
 COPY run.sh /
 RUN chmod +x /run.sh
 CMD /run.sh

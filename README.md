@@ -37,6 +37,8 @@ docker run --rm \
   -t -i piasy/webrtc-build
 ```
 
+WARNING: proxychains is not working now, I'll take a look on it later :(
+
 If you don't need run shadowsocks proxy, you can run:
 
 ``` bash
