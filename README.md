@@ -22,7 +22,7 @@ About port expose:
 
 So make sure your firewall has opened those ports.
 
-About how to modify `constants.py`, see [this example](https://github.com/Piasy/apprtc-docker/blob/master/server/constants.py), `ICE_SERVER_BASE_URL`, `ICE_SERVER_URL_TEMPLATE` and `WSS_INSTANCES` has been modified.
+About how to modify `constants.py`, see [this example](https://github.com/Piasy/WebRTC-Docker/blob/master/apprtc-server/constants.py), `ICE_SERVER_BASE_URL`, `ICE_SERVER_URL_TEMPLATE` and `WSS_INSTANCES` has been modified.
 
 ## WebRTC-Build
 
