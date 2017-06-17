@@ -27,7 +27,7 @@ COPY shadowsocks.json /etc/shadowsocks.json
 COPY polipo.config /etc/polipo/config
 
 COPY build.sh /
-RUN echo -e 'source /build.sh' > /root/.bashrc
+RUN echo 'source /build.sh' > /root/.bashrc
 COPY run.sh /
 RUN chmod +x /run.sh
 CMD /run.sh
