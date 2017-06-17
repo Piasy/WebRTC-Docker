@@ -10,6 +10,8 @@ then
   sslocal -c /etc/shadowsocks.json -d start -v
   export http_proxy=http://localhost:8123
   export https_proxy=http://localhost:8123
+  service polipo stop
+  service polipo start
   bash
 else
   bash

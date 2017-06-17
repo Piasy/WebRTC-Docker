@@ -26,9 +26,6 @@ WORKDIR /
 COPY shadowsocks.json /etc/shadowsocks.json
 COPY polipo.config /etc/polipo/config
 
-RUN service polipo stop
-RUN service polipo start
-
 COPY build.sh /
 RUN echo -e 'source /build.sh' > /root/.bashrc
 COPY run.sh /
