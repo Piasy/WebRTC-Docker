@@ -27,8 +27,8 @@ create_directory_if_not_found() {
 }
 
 DEFAULT_WEBRTC_URL="https://chromium.googlesource.com/external/webrtc.git"
-DEPOT_TOOLS="$PROJECT_ROOT/depot_tools"
 WEBRTC_ROOT="$PROJECT_ROOT/webrtc"
+DEPOT_TOOLS="$WEBRTC_ROOT/depot_tools"
 create_directory_if_not_found "$WEBRTC_ROOT"
 BUILD="$WEBRTC_ROOT/libjingle_peerconnection_builds"
 WEBRTC_TARGET="AppRTCMobile"
@@ -132,7 +132,7 @@ function wrbase() {
 function wrarmv7() {
     wrbase
     export GYP_DEFINES="$GYP_DEFINES OS=android"
-    export GYP_GENERATOR_FLAGS="$GYP_GENERATOR_FLAGS output_dir=out_android_armeabi-v7a"
+    export GYP_GENERATOR_FLAGS="$GYP_GENERATOR_FLAGS output_dir=out/android_armeabi-v7a"
     export GYP_CROSSCOMPILE=1
     echo "ARMv7 with Neon Build"
 }
@@ -141,7 +141,7 @@ function wrarmv7() {
 function wrarmv8() {
     wrbase
     export GYP_DEFINES="$GYP_DEFINES OS=android target_arch=arm64 target_subarch=arm64"
-    export GYP_GENERATOR_FLAGS="output_dir=out_android_arm64-v8a"
+    export GYP_GENERATOR_FLAGS="output_dir=out/android_arm64-v8a"
     export GYP_CROSSCOMPILE=1
     echo "ARMv8 with Neon Build"
 }
@@ -150,7 +150,7 @@ function wrarmv8() {
 function wrX86() {
     wrbase
     export GYP_DEFINES="$GYP_DEFINES OS=android target_arch=ia32"
-    export GYP_GENERATOR_FLAGS="output_dir=out_android_x86"
+    export GYP_GENERATOR_FLAGS="output_dir=out/android_x86"
     echo "x86 Build"
 }
 
@@ -158,7 +158,7 @@ function wrX86() {
 function wrX86_64() {
     wrbase
     export GYP_DEFINES="$GYP_DEFINES OS=android target_arch=x64"
-    export GYP_GENERATOR_FLAGS="output_dir=out_android_x86_64"
+    export GYP_GENERATOR_FLAGS="output_dir=out/android_x86_64"
     echo "x86_64 Build"
 }
 
@@ -227,7 +227,7 @@ execute_build() {
         DEBUG_ARG='is_debug=false dcheck_always_on=true'
     fi
 
-    ARCH_OUT="out_android_${ARCH}"
+    ARCH_OUT="out/android_${ARCH}"
 
     echo Generate projects using GN
     gn gen "$ARCH_OUT/$BUILD_TYPE" --args="$DEBUG_ARG symbol_level=1 target_os=\"android\" target_cpu=\"${ARCH}\""
