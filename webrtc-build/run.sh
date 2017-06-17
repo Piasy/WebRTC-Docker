@@ -8,7 +8,9 @@ then
   sed -i "s/your-password/$SHADOW_SOCKS_ENC_PASS/g" /etc/shadowsocks.json
 
   sslocal -c /etc/shadowsocks.json -d start -v
-  proxychains bash
+  export http_proxy=http://localhost:8123
+  export https_proxy=http://localhost:8123
+  bash
 else
   bash
 fi

@@ -12,7 +12,7 @@ ENV SHADOW_SOCKS_ENC_PASS encpass
 RUN apt-get update -y
 
 # Deps
-RUN apt-get install -y build-essential vim git python-pip proxychains wget
+RUN apt-get install -y build-essential vim git python-pip polipo wget
 RUN pip install shadowsocks
 
 # libsodium
@@ -23,12 +23,14 @@ RUN ./configure && make && make install
 RUN echo /usr/local/lib > /etc/ld.so.conf.d/usr_local_lib.conf && ldconfig
 
 WORKDIR /
-RUN mkdir /root/.proxychains
-COPY proxychains.conf /root/.proxychains/proxychains.conf
 COPY shadowsocks.json /etc/shadowsocks.json
+COPY polipo.config /etc/polipo/config
+
+RUN service polipo stop
+RUN service polipo start
 
 COPY build.sh /
-RUN echo 'source /build.sh' > /root/.bashrc
+RUN echo -e 'source /build.sh' > /root/.bashrc
 COPY run.sh /
 RUN chmod +x /run.sh
 CMD /run.sh
