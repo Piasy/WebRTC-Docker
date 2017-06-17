@@ -37,7 +37,7 @@ docker run --rm \
   -t -i piasy/webrtc-build
 ```
 
-WARNING: proxychains is not working now, I'll take a look on it later :(
+Note: if your encrypt password contains special characters, remember to escape it with `\`, e.g. `&bDmc!` to `\&bDmc\!`.
 
 If you don't need run shadowsocks proxy, you can run:
 
