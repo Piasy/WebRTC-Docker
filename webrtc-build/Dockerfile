@@ -36,7 +36,8 @@ RUN ./install-build-deps-android.sh
 
 COPY build.sh /
 
-RUN echo 'source /build.sh' > /root/.bashrc
+RUN echo 'source /build.sh' >> /root/.bashrc
+RUN echo 'export PATH=$PATH:$DEPOT_TOOLS' >> /root/.bashrc
 COPY run.sh /
 RUN chmod +x /run.sh
 
