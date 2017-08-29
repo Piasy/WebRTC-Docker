@@ -22,10 +22,8 @@ app.get('/iceconfig', function (req, resp) {
     iceServers: [
       {
         urls: [
-          'turn:ICE_SERVER_ADDR:3478?transport=udp',
-          'turn:ICE_SERVER_ADDR:3478?transport=tcp',
-          'turn:ICE_SERVER_ADDR:3479?transport=udp',
-          'turn:ICE_SERVER_ADDR:3479?transport=tcp'
+          'stun:ICE_SERVER_ADDR:3478',
+          'turn:ICE_SERVER_ADDR:3478'
         ],
         username: turn_username,
         credential: password

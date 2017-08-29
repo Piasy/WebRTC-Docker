@@ -73,6 +73,9 @@ WORKDIR /
 RUN npm install express
 COPY ice.js /
 
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 COPY run.sh /
 RUN chmod +x /run.sh
 CMD /run.sh
