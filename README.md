@@ -50,4 +50,8 @@ docker run --rm \
   -t -i piasy/webrtc-build
 ```
 
+After the docker image started, to get/update WebRTC code, run `get_webrtc`, to build WebRTC Android demo, run `build_apprtc`.
+
+To get WebRTC code from a custom url, e.g. `https://webrtc.googlesource.com/src.git`, run `USER_WEBRTC_URL=https://webrtc.googlesource.com/src.git get_webrtc`. To create debug build, run `WEBRTC_DEBUG=true build_apprtc`.
+
 Only Android is supported now, iOS support is working on, stay tuned!

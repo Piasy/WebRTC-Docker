@@ -26,7 +26,7 @@ create_directory_if_not_found() {
 	fi
 }
 
-DEFAULT_WEBRTC_URL="https://chromium.googlesource.com/external/webrtc.git"
+DEFAULT_WEBRTC_URL="https://webrtc.googlesource.com/src.git"
 WEBRTC_ROOT="$PROJECT_ROOT/webrtc"
 DEPOT_TOOLS="$WEBRTC_ROOT/depot_tools"
 create_directory_if_not_found "$WEBRTC_ROOT"
