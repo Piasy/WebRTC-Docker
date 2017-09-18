@@ -28,6 +28,8 @@ About how to modify `constants.py`, see [this example](https://github.com/Piasy/
 
 ## WebRTC-Build
 
+Credit: the build script is based on [pristineio/webrtc-build-scripts](https://github.com/pristineio/webrtc-build-scripts).
+
 ``` bash
 docker run --rm \
   -e ENABLE_SHADOW_SOCKS=true \
