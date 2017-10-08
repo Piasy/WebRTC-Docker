@@ -1,5 +1,5 @@
 FROM ubuntu:xenial
-MAINTAINER Piasy Xu (xz4215@gmail.com)
+LABEL maintainer="Piasy Xu (xz4215@gmail.com)"
 
 EXPOSE 8080 8089 3478 3033 59000-65000
 

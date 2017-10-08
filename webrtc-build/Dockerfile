@@ -1,5 +1,5 @@
 FROM ubuntu:xenial
-MAINTAINER Piasy Xu (xz4215@gmail.com)
+LABEL maintainer="Piasy Xu (xz4215@gmail.com)"
 
 WORKDIR /
 
@@ -12,7 +12,7 @@ ENV SHADOW_SOCKS_ENC_PASS encpass
 RUN apt-get update -y
 
 # Deps
-RUN apt-get install -y vim python-pip polipo wget git gnupg flex bison gperf build-essential zip curl subversion pkg-config libglib2.0-dev libgtk2.0-dev libxtst-dev libxss-dev libpci-dev libdbus-1-dev libgconf2-dev libgnome-keyring-dev libnss3-dev lsb-release sudo locales
+RUN apt-get install -y vim python-pip polipo wget git gnupg flex bison gperf build-essential zip curl subversion pkg-config libglib2.0-dev libgtk2.0-dev libxtst-dev libxss-dev libpci-dev libdbus-1-dev libgconf2-dev libgnome-keyring-dev libnss3-dev lsb-release sudo locales libssl-dev openssl cmake lbzip2 libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libswresample-dev libpostproc-dev
 RUN pip install shadowsocks
 
 # libsodium
@@ -34,6 +34,7 @@ RUN chmod +x ./install-build-deps-android.sh
 RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
 RUN ./install-build-deps-android.sh
 
+COPY webrtc-builds /webrtc-builds
 COPY build.sh /
 
 RUN echo 'source /build.sh' >> /root/.bashrc

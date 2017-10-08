@@ -100,7 +100,8 @@ pull_webrtc() {
     fi
 
     # Ensure our target os is correct building android
-	echo 'target_os = ["android", "unix"]' >> .gclient
+	echo 'target_os = ["ios", "mac", "linux", "android", "unix"]' >> .gclient
+    gclient runhooks
 
     # Get latest webrtc source
 	echo Pull down the latest from the webrtc repo
