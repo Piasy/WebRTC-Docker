@@ -483,7 +483,7 @@ function package() {
         modules ortc p2p pc rtc_base rtc_tools sdk stats system_wrappers \
         test video voice_engine -name "*.h" \
         -exec $CP --parents '{}' $outdir/$label/include ';'
-      find . -maxdepth 0 -name "*.h" -exec $CP --parents '{}' $outdir/$label/include ';'
+      find . -maxdepth 1 -name "*.h" -exec $CP --parents '{}' $outdir/$label/include ';'
 
       # Find and copy dependencies
       # The following build dependencies were excluded: gflags, ffmpeg, openh264, openmax_dl, winsdk_samples, yasm
