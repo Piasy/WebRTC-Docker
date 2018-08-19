@@ -1,7 +1,6 @@
 # Copyright 2015 Google Inc. All Rights Reserved.
 
 """AppRTC Constants.
-
 This module contains the constants used in AppRTC Python modules.
 """
 import os
@@ -20,10 +19,9 @@ LOOPBACK_CLIENT_ID = 'LOOPBACK_CLIENT_ID'
 
 # Turn/Stun server override. This allows AppRTC to connect to turn servers
 # directly rather than retrieving them from an ICE server provider.
-TURN_SERVER_OVERRIDE = []
+ICE_SERVER_OVERRIDE = None
 # Enable by uncomment below and comment out above, then specify turn and stun
-# servers below.
-# TURN_SERVER_OVERRIDE = [
+# ICE_SERVER_OVERRIDE  = [
 #   {
 #     "urls": [
 #       "turn:hostname/IpToTurnServer:19305?transport=udp",
@@ -39,19 +37,9 @@ TURN_SERVER_OVERRIDE = []
 #   }
 # ]
 
-# TODO(jansson): Remove once AppRTCDemo on iOS supports ICE_SERVER.
-TURN_BASE_URL = 'https://computeengineondemand.appspot.com'
-TURN_URL_TEMPLATE = '%s/turn?username=%s&key=%s'
-CEOD_KEY = '4080218913'
-
 ICE_SERVER_BASE_URL = 'http://<server public IP>:3033'
 ICE_SERVER_URL_TEMPLATE = '%s/iceconfig?key=%s'
 ICE_SERVER_API_KEY = os.environ.get('ICE_SERVER_API_KEY')
-
-CALLSTATS_PARAMS = {
-  'appId': os.environ.get('CALLSTATS_APP_ID'),
-  'appSecret': os.environ.get('CALLSTATS_APP_SECRET')
-}
 
 # Dictionary keys in the collider instance info constant.
 WSS_INSTANCE_HOST_KEY = 'host_port_pair'

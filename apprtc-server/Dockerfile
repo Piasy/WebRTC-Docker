@@ -5,23 +5,22 @@ EXPOSE 8080 8089 3478 3033 59000-65000
 
 WORKDIR /
 
-ENV GAE_VER 1.9.54
+ENV GAE_VER 1.9.74
 ENV GOLANG_VER 1.8.3
+ENV LIBEVENT_VER 2.1.8
+ENV COTURN_VER 4.5.0.7
 
 ENV PUBLIC_IP 127.0.0.1
 
 RUN apt-get update -y
 
 # Deps
-RUN apt-get install -y build-essential vim git wget unzip python2.7 python-pil python-webtest python-pip libssl-dev
+RUN apt-get install -y build-essential vim git curl wget unzip python2.7 python-pil python-webtest python-pip libssl-dev openjdk-8-jdk
 RUN pip install requests
 
 # NodeJS
-RUN wget -O nodejs.sh https://deb.nodesource.com/setup_4.x
-RUN chmod +x nodejs.sh
-RUN sh ./nodejs.sh
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
-RUN ln -s -f /usr/bin/nodejs /usr/bin/node
 
 # Golang
 ENV GOLANG_TAR go$GOLANG_VER.linux-amd64.tar.gz
@@ -38,14 +37,14 @@ RUN unzip $GAE_ZIP -d /usr/local
 ENV PATH $PATH:/usr/local/google_appengine
 
 # Coturn server
-RUN wget https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-RUN tar xvfz libevent-2.0.21-stable.tar.gz
-WORKDIR libevent-2.0.21-stable
+RUN wget https://github.com/libevent/libevent/releases/download/release-$LIBEVENT_VER-stable/libevent-$LIBEVENT_VER-stable.tar.gz
+RUN tar xvfz libevent-$LIBEVENT_VER-stable.tar.gz
+WORKDIR libevent-$LIBEVENT_VER-stable
 RUN ./configure && make && make install
 WORKDIR /
-RUN wget http://turnserver.open-sys.org/downloads/v4.5.0.6/turnserver-4.5.0.6.tar.gz
-RUN tar xvfz turnserver-4.5.0.6.tar.gz
-WORKDIR turnserver-4.5.0.6
+RUN wget http://turnserver.open-sys.org/downloads/v$COTURN_VER/turnserver-$COTURN_VER.tar.gz
+RUN tar xvfz turnserver-$COTURN_VER.tar.gz
+WORKDIR turnserver-$COTURN_VER
 RUN ./configure && make && make install
 RUN turnadmin -a -u ninefingers -r apprtc -p youhavetoberealistic
 COPY turnserver.conf /etc/turnserver.conf
