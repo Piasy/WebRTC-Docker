@@ -16,9 +16,9 @@ RUN apt-get install -y vim python-pip polipo wget git gnupg flex bison gperf bui
 RUN pip install shadowsocks
 
 # libsodium
-RUN wget https://download.libsodium.org/libsodium/releases/libsodium-1.0.12.tar.gz
-RUN tar zxf libsodium-1.0.12.tar.gz
-WORKDIR /libsodium-1.0.12
+RUN wget https://download.libsodium.org/libsodium/releases/libsodium-1.0.16.tar.gz
+RUN tar zxf libsodium-1.0.16.tar.gz
+WORKDIR /libsodium-1.0.16
 RUN ./configure && make && make install
 RUN echo /usr/local/lib > /etc/ld.so.conf.d/usr_local_lib.conf && ldconfig
 
@@ -34,11 +34,11 @@ RUN chmod +x ./install-build-deps-android.sh
 RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
 RUN ./install-build-deps-android.sh
 
-COPY webrtc-builds /webrtc-builds
-COPY build.sh /
+# depot tools
+WORKDIR /
+RUN git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 
-RUN echo 'source /build.sh' >> /root/.bashrc
-RUN echo 'export PATH=$PATH:$DEPOT_TOOLS' >> /root/.bashrc
+RUN echo 'export PATH=$PATH:/depot_tools' >> /root/.bashrc
 COPY run.sh /
 RUN chmod +x /run.sh
 
