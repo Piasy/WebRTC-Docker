@@ -10,7 +10,7 @@ var hmac = function (key, content) {
   return method.read()
 }
 
-app.get('/iceconfig', function (req, resp) {
+function handleIceRequest(req, resp) {
   var query = req.query
   var key = '4080218913'
   var time_to_live = 600
@@ -30,7 +30,10 @@ app.get('/iceconfig', function (req, resp) {
       }
     ]
   })
-})
+}
+
+app.get('/iceconfig', handleIceRequest)
+app.post('/iceconfig', handleIceRequest)
 
 app.listen('3033', function () {
   console.log('server started')
