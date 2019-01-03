@@ -71,6 +71,7 @@ WORKDIR /
 
 RUN npm install express
 COPY ice.js /
+COPY constants.py /apprtc/out/app_engine/constants.py
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
