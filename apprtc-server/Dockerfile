@@ -15,8 +15,10 @@ ENV PUBLIC_IP 127.0.0.1
 RUN apt-get update -y
 
 # Deps
-RUN apt-get install -y build-essential vim git curl wget unzip python2.7 python-pil python-webtest python-pip libssl-dev openjdk-8-jdk
-RUN pip install requests
+RUN apt-get install -y build-essential vim git curl wget unzip python2.7 python-pil python-webtest python-pip libssl-dev openjdk-8-jdk && \
+    rm -rf /usr/lib/python2.7/dist-packages/supervisor* && \
+    pip install supervisor requests && \
+    pip install git+https://github.com/bendikro/supervisord-dependent-startup
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
@@ -75,6 +77,8 @@ COPY constants.py /apprtc/out/app_engine/constants.py
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY apprtc_supervisord.conf /
 
 COPY run.sh /
 RUN chmod +x /run.sh
