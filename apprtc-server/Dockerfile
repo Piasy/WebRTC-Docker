@@ -55,6 +55,10 @@ COPY turnserver.conf /etc/turnserver.conf
 WORKDIR /
 RUN git clone -b multiple_peers https://github.com/Piasy/apprtc.git
 
+ENV ROOM_SIZE_VALUE 4
+ENV AUTO_DESTROY_SIZE_VALUE 0
+ENV USER_TIMEOUT_SECONDS_VALUE 180
+
 WORKDIR apprtc
 
 RUN ln -s /apprtc/src/collider/collider $GOPATH/src
