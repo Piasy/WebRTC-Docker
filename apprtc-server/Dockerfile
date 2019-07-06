@@ -51,24 +51,27 @@ RUN ./configure && make && make install
 RUN turnadmin -a -u ninefingers -r apprtc -p youhavetoberealistic
 COPY turnserver.conf /etc/turnserver.conf
 
-# AppRTC
-WORKDIR /
-RUN git clone -b multiple_peers https://github.com/Piasy/apprtc.git
+RUN npm install -g npm
+RUN npm install -g grunt-cli
 
 ENV ROOM_SIZE_VALUE 4
 ENV AUTO_DESTROY_SIZE_VALUE 0
 ENV USER_TIMEOUT_SECONDS_VALUE 180
 
+ENV APPRTC_REV a465e1a
+
+# AppRTC
+WORKDIR /
+RUN git clone -b multiple_peers https://github.com/Piasy/apprtc.git
+
 WORKDIR apprtc
+RUN git reset --hard $APPRTC_REV
 
 RUN ln -s /apprtc/src/collider/collider $GOPATH/src
 RUN ln -s /apprtc/src/collider/collidermain $GOPATH/src
 RUN ln -s /apprtc/src/collider/collidertest $GOPATH/src
 RUN go get collidermain
 RUN go install collidermain
-
-RUN npm install -g npm
-RUN npm install -g grunt-cli
 
 RUN npm install
 RUN grunt build
