@@ -5,7 +5,7 @@ EXPOSE 8080 8089 3478 3033 59000-65000
 
 WORKDIR /
 
-ENV GAE_VER 1.9.74
+ENV GAE_VER 1.9.91
 ENV GOLANG_VER 1.8.3
 ENV LIBEVENT_VER 2.1.8
 ENV COTURN_VER 4.5.0.7
@@ -15,10 +15,23 @@ ENV PUBLIC_IP 127.0.0.1
 RUN apt-get update -y
 
 # Deps
-RUN apt-get install -y build-essential vim git curl wget unzip python2.7 python-pil python-webtest python-pip libssl-dev openjdk-8-jdk && \
+RUN apt-get install -y build-essential vim git curl wget unzip python2.7 python-pil python-webtest python-pip libssl-dev openjdk-8-jdk apache2 && \
     rm -rf /usr/lib/python2.7/dist-packages/supervisor* && \
     pip install supervisor requests && \
     pip install git+https://github.com/bendikro/supervisord-dependent-startup
+
+########### Apache2 SSL vsilva
+RUN a2enmod proxy* ssl headers
+RUN a2ensite *ssl
+
+# apache 2 proxy SSL -> 8080
+#COPY apache2-proxy.conf /etc/apache2/conf-enabled
+
+# WS copy CA ssl certs
+RUN mkdir -p /cert
+COPY cert-pebble.pem /cert
+COPY key-pebble.pem /cert
+###########
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
@@ -37,6 +50,7 @@ ENV GAE_ZIP google_appengine_$GAE_VER.zip
 RUN wget https://storage.googleapis.com/appengine-sdks/featured/$GAE_ZIP
 RUN unzip $GAE_ZIP -d /usr/local
 ENV PATH $PATH:/usr/local/google_appengine
+COPY wsgi_server.py /usr/local/google_appengine/google/appengine/tools/devappserver2/
 
 # Coturn server
 RUN wget https://github.com/libevent/libevent/releases/download/release-$LIBEVENT_VER-stable/libevent-$LIBEVENT_VER-stable.tar.gz
@@ -79,6 +93,9 @@ COPY constants.py /apprtc/out/app_engine/constants.py
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY apprtc_supervisord.conf /
+
+# vsilva
+RUN mkdir /webrtc_avconf
 
 COPY run.sh /
 RUN chmod +x /run.sh

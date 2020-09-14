@@ -1,6 +1,19 @@
-# WebRTC-Docker
+# WebRTC-Docker for SSL
 
-Out-of-the-box docker images for AppRTC dev/test purpose.
+Out-of-the-box docker images for AppRTC dev/test purposes. Updated for SSL support.
+
++ Deploy the super slick https://appr.tc/ in your local docker env for personal enjoyment.
++ Note: FireFox/Chrome require valid SSL certificates to open WebRTC Audio/Video streams and thus run AppRTC
+
+SSL Changes:
+
++ CA cert/key provided using Let'sEncrypt Pebble
++ SSL certs generated using hostname signed and deployed to /cert
++ GAE SSL params: dev_appserver.py /apprtc/out/app_engine --skip_sdk_update_check --enable_host_checking=False --host=0.0.0.0 --ssl_certificate_path=/cert/cert.pem --ssl_certificate_key_path=/cert/key.pem --specified_service_ports default:442
++ Collider (WS server in SSL mode): /goWorkspace/bin/collidermain -port=8089 -tls=true --room-server=0.0.0.0
++ ICE NodeJS app changed to start in HTTPS mode
++ run.sh changed to create host cert signed with CA certs using openssl
++ Docker file updated
 
 ## AppRTC-Server
 
@@ -20,6 +33,18 @@ Linux host:
 docker run --rm --net=host \
   -e PUBLIC_IP=<server public IP> \
   -it piasy/apprtc-server
+```
+
+Manual build Linux host (must have docker installed):
++ Copy files to your Linux host
++ chmod +x *.sh
++ Run the bash commands below
++ Install the CA certificate (chain-pebble.pfx) in your FF/Chrome cert store 
++ Open https://MYHOSTNAME/
+
+``` bash
+$ sudo ./build.sh         # or docker build -t webrtc . (takes 5mins to build)
+$ sudo ./docker-run.sh    # create SSL certs for hostname and start servers
 ```
 
 About port publish:
