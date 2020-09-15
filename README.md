@@ -36,14 +36,18 @@ docker run --rm --net=host \
 ```
 
 Manual build Linux host (must have docker installed):
-+ Copy files to your Linux host
-+ chmod +x *.sh
++ Copy files to your Linux host: git clone https://github.com/Shark-y/WebRTC-Docker rtc
++ Navigate to: apprtc-server then chmod +x *.sh
 + Run the bash commands below
 + Install the CA certificate (chain-pebble.pfx) in your FF/Chrome cert store 
 + Open https://MYHOSTNAME/
 
 ``` bash
-$ sudo ./build.sh         # or docker build -t webrtc . (takes 5mins to build)
+$ mkdir rtc
+$ git clone https://github.com/Shark-y/WebRTC-Docker rtc
+$ cd rtc/apprtc-server
+$ chmod +x *.sh
+$ sudo ./build.sh         # Build the docker image - docker build -t webrtc . (takes 5mins to build)
 $ sudo ./docker-run.sh    # create SSL certs for hostname and start servers
 ```
 
