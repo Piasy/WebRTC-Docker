@@ -34,7 +34,7 @@ COPY key-pebble.pem /cert
 ###########
 
 # NodeJS
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 
 # Golang
@@ -83,7 +83,7 @@ RUN npm install -g grunt-cli
 RUN npm install
 RUN grunt build
 
-WORKDIR /
+#vsilva WORKDIR /
 
 RUN npm install express
 COPY ice.js /
