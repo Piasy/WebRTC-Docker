@@ -86,7 +86,7 @@ RUN grunt build
 #vsilva WORKDIR /
 
 RUN npm install express
-COPY ice.js /
+COPY ice.js /apprtc
 COPY constants.py /apprtc/out/app_engine/constants.py
 
 # Clean up APT when done.
