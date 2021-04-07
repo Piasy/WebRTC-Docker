@@ -37,7 +37,7 @@ ICE_SERVER_OVERRIDE = None
 #   }
 # ]
 
-ICE_SERVER_BASE_URL = 'http://SERVER_PUBLIC_IP:3033'
+ICE_SERVER_BASE_URL = 'https://SERVER_PUBLIC_IP:3033'
 ICE_SERVER_URL_TEMPLATE = '%s/iceconfig?key=%s'
 ICE_SERVER_API_KEY = os.environ.get('ICE_SERVER_API_KEY')
 
@@ -81,3 +81,6 @@ BIGQUERY_DATASET_LOCAL = 'dev'
 
 # BigQuery table within the dataset.
 BIGQUERY_TABLE = 'analytics'
+
+# vsilva
+HEADER_MESSAGE = 'Web RTC'
